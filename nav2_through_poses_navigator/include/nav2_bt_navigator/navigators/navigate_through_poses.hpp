@@ -33,18 +33,18 @@ namespace nav2_bt_navigator
 {
 
 /**
- * @class NavigateThroughPosesNavigator
+ * @class NavigateThroughPosesNavigatorStandalone
  * @brief A navigator for navigating to a a bunch of intermediary poses
  */
-class NavigateThroughPosesNavigator
+class NavigateThroughPosesNavigatorStandalone
   : public nav2_core::BehaviorTreeNavigator<nav2_msgs::action::NavigateThroughPoses>
 {
 public:
   using ActionT = nav2_msgs::action::NavigateThroughPoses;
   /**
-   * @brief A constructor for NavigateThroughPosesNavigator
+   * @brief Constructor for NavigateThroughPosesNavigatorStandalone
    */
-  NavigateThroughPosesNavigator()
+  NavigateThroughPosesNavigatorStandalone()
   : BehaviorTreeNavigator() {}
 
   /**

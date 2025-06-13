@@ -16,16 +16,16 @@ find_package(rclcpp_lifecycle REQUIRED)
 
 nav2_package()
 
-add_library(nav2_navigate_through_poses SHARED
+add_library(nav2_through_poses_navigator SHARED
   src/navigators/navigate_through_poses.cpp
 )
 
-target_include_directories(nav2_navigate_through_poses PUBLIC
+target_include_directories(nav2_through_poses_navigator PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>
 )
 
-target_link_libraries(nav2_navigate_through_poses PUBLIC
+target_link_libraries(nav2_through_poses_navigator PUBLIC
   ${geometry_msgs_TARGETS}
   nav2_core::nav2_core
   ${nav2_msgs_TARGETS}
@@ -35,7 +35,7 @@ target_link_libraries(nav2_navigate_through_poses PUBLIC
   rclcpp_action::rclcpp_action
 )
 
-target_link_libraries(nav2_navigate_through_poses PRIVATE
+target_link_libraries(nav2_through_poses_navigator PRIVATE
   ament_index_cpp::ament_index_cpp
   pluginlib::pluginlib
   rclcpp_lifecycle::rclcpp_lifecycle
@@ -43,8 +43,8 @@ target_link_libraries(nav2_navigate_through_poses PRIVATE
 
 pluginlib_export_plugin_description_file(nav2_core navigator_through_poses_plugins.xml)
 
-install(TARGETS nav2_navigate_through_poses
-  EXPORT export_nav2_navigate_through_poses
+install(TARGETS nav2_through_poses_navigator
+  EXPORT export_nav2_through_poses_navigator
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
@@ -60,8 +60,8 @@ if(BUILD_TESTING)
 endif()
 
 ament_export_include_directories(include/${PROJECT_NAME})
-ament_export_libraries(nav2_navigate_through_poses)
+ament_export_libraries(nav2_through_poses_navigator)
 ament_export_dependencies(geometry_msgs nav2_core nav2_msgs nav2_util nav_msgs pluginlib rclcpp rclcpp_action)
-ament_export_targets(export_nav2_navigate_through_poses)
+ament_export_targets(export_nav2_through_poses_navigator)
 
 ament_package()

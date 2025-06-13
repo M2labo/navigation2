@@ -23,7 +23,7 @@ namespace nav2_bt_navigator
 {
 
 bool
-NavigateThroughPosesNavigator::configure(
+NavigateThroughPosesNavigatorStandalone::configure(
   rclcpp_lifecycle::LifecycleNode::WeakPtr parent_node,
   std::shared_ptr<nav2_util::OdomSmoother> odom_smoother)
 {
@@ -68,7 +68,7 @@ NavigateThroughPosesNavigator::configure(
 }
 
 std::string
-NavigateThroughPosesNavigator::getDefaultBTFilepath(
+NavigateThroughPosesNavigatorStandalone::getDefaultBTFilepath(
   rclcpp_lifecycle::LifecycleNode::WeakPtr parent_node)
 {
   std::string default_bt_xml_filename;
@@ -89,7 +89,7 @@ NavigateThroughPosesNavigator::getDefaultBTFilepath(
 }
 
 bool
-NavigateThroughPosesNavigator::goalReceived(ActionT::Goal::ConstSharedPtr goal)
+NavigateThroughPosesNavigatorStandalone::goalReceived(ActionT::Goal::ConstSharedPtr goal)
 {
   auto bt_xml_filename = goal->behavior_tree;
 
@@ -103,19 +103,19 @@ NavigateThroughPosesNavigator::goalReceived(ActionT::Goal::ConstSharedPtr goal)
 }
 
 void
-NavigateThroughPosesNavigator::goalCompleted(
+NavigateThroughPosesNavigatorStandalone::goalCompleted(
   typename ActionT::Result::SharedPtr result,
   const nav2_behavior_tree::BtStatus final_bt_status)
 {
   if (result->error_code == 0) {
     if (bt_action_server_->populateInternalError(result)) {
       RCLCPP_WARN(logger_,
-        "NavigateThroughPosesNavigator::goalCompleted, internal error %d:'%s'.",
+      "NavigateThroughPosesNavigatorStandalone::goalCompleted, internal error %d:'%s'.",
         result->error_code,
         result->error_msg.c_str());
     }
   } else {
-    RCLCPP_WARN(logger_, "NavigateThroughPosesNavigator::goalCompleted error %d:'%s'.",
+    RCLCPP_WARN(logger_, "NavigateThroughPosesNavigatorStandalone::goalCompleted error %d:'%s'.",
       result->error_code,
       result->error_msg.c_str());
   }
@@ -138,7 +138,7 @@ NavigateThroughPosesNavigator::goalCompleted(
 }
 
 void
-NavigateThroughPosesNavigator::onLoop()
+NavigateThroughPosesNavigatorStandalone::onLoop()
 {
   using namespace nav2_util::geometry_utils;  // NOLINT
 
@@ -222,7 +222,7 @@ NavigateThroughPosesNavigator::onLoop()
 }
 
 void
-NavigateThroughPosesNavigator::onPreempt(ActionT::Goal::ConstSharedPtr goal)
+NavigateThroughPosesNavigatorStandalone::onPreempt(ActionT::Goal::ConstSharedPtr goal)
 {
   RCLCPP_INFO(logger_, "Received goal preemption request");
 
@@ -253,7 +253,7 @@ NavigateThroughPosesNavigator::onPreempt(ActionT::Goal::ConstSharedPtr goal)
 }
 
 bool
-NavigateThroughPosesNavigator::initializeGoalPoses(ActionT::Goal::ConstSharedPtr goal)
+NavigateThroughPosesNavigatorStandalone::initializeGoalPoses(ActionT::Goal::ConstSharedPtr goal)
 {
   geometry_msgs::msg::PoseStamped current_pose;
   if (!nav2_util::getCurrentPose(
@@ -316,5 +316,5 @@ NavigateThroughPosesNavigator::initializeGoalPoses(ActionT::Goal::ConstSharedPtr
 
 #include "pluginlib/class_list_macros.hpp"
 PLUGINLIB_EXPORT_CLASS(
-  nav2_bt_navigator::NavigateThroughPosesNavigator,
+  nav2_bt_navigator::NavigateThroughPosesNavigatorStandalone,
   nav2_core::NavigatorBase)

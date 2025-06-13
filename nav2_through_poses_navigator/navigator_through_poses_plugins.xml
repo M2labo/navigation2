@@ -1,6 +1,6 @@
 <class_libraries>
-  <library path="nav2_navigate_through_poses">
-    <class type="nav2_bt_navigator::NavigateThroughPosesNavigator" base_class_type="nav2_core::NavigatorBase">
+  <library path="nav2_through_poses_navigator">
+    <class type="nav2_bt_navigator::NavigateThroughPosesNavigatorStandalone" base_class_type="nav2_core::NavigatorBase">
       <description>Navigate through Poses Navigator</description>
     </class>
   </library>
